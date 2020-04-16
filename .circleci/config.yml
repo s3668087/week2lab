@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  build-and-test:
     docker:
       - image: circleci/node:lts
     steps:
@@ -34,10 +34,7 @@ jobs:
 workflows:
   build-and-package:
     jobs:
-      - build
+      - build-and-test
       - pack:
           requires:
-            - build
-          filters:
-            branches:
-              only: master
+            - build-and-test
